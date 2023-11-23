@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #9af9ff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sudoku.HelloController">
+  <children>
+    <MenuBar prefHeight="23.0" prefWidth="500.0" VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Game">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleNewGame" text="New game" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleLeaderBoard" text="Leader board" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#handlePreferences" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+                  <Menu mnemonicParsing="false" text="Edit difficult">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleNewGame" text="Easy" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleLeaderBoard" text="Medium" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePreferences" text="Hard" />
+                     </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#handleCreateCustomDifficult" text="Create custom difficult" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handleRules" text="Rules" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Text layoutX="130.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Inter; -fx-font-style: normal;" text="SU-DO-KU" wrappingWidth="240.0">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
+            <GridPane fx:id="gridPane" gridLinesVisible="true" layoutX="72.0" layoutY="94.0" prefHeight="335.0" prefWidth="356.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="5" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="6" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="7">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField alignment="CENTER" prefHeight="28.0" prefWidth="9.0" GridPane.columnIndex="8" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </GridPane>
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>
