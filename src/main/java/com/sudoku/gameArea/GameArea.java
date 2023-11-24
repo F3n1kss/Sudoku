@@ -3,6 +3,15 @@ package com.sudoku.gameArea;
 public class GameArea {
     private int row;
     private int col;
+    private int value;
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
 
     public GameArea(int x, int y) {
         this.row = x;
