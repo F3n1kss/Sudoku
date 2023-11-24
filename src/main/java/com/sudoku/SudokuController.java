@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class HelloController {
+public class SudokuController {
     SudokuGenerator generator = new SudokuGenerator();
 
     private TextField[][] textFields;

@@ -15,10 +15,11 @@ public class SudokuGenerator {
 
 
     public void fillGridPaneWithRandomValues(GridPane gridPane, int difficult) {
+        boolean isValidSquare;
         Random random = new Random();
         int randomValue = random.nextInt(9) + 1;
         generateCenters();
-        isValidSquare(randomValue);
+        pasteNumber(randomValue);
         for (GameArea area : coordinates) {
             int row = area.getRow();
             int col = area.getCol();
@@ -42,23 +43,38 @@ public class SudokuGenerator {
         }
     }
 
-    public boolean isValidSquare(int randomValue) {
-        boolean isValidSquare = true;
-        for (GameArea center : centers)
+    public void pasteNumber(int randomValue) {
+        int currentSquare = isValidSquare(randomValue);
+        System.out.println(currentSquare);
+        for (int col = centers.get(currentSquare).getCol(); col < GRID_SIZE; col++)
         {
-            for(int i = center.getCol()-1; i < center.getCol()+1; i++)
+            for (int row = centers.get(currentSquare).getRow(); row < GRID_SIZE; row++)
             {
-                for (int b = center.getRow()-1; b < center.getCol()+1; b++)
+                //Дописати If
+            }
+        }
+    }
+
+    public int isValidSquare(int randomValue) {
+        int numberOfSquare;
+        boolean isValidSquare = false;
+        for (int i = 0; i < centers.size(); i++)
+        {
+            GameArea center = centers.get(i);
+            for(int col = center.getCol()-1; col < center.getCol()+1; col++)
+            {
+                for (int row = center.getRow()-1; row < center.getCol()+1; row++)
                 {
-                    if (randomValue == center.getValue())
+                    if (randomValue != center.getValue())
                     {
-                        isValidSquare = false;
-                        break;
+                        isValidSquare = true;
+                        System.out.println(centers.get(i).getCol() + " " + centers.get(i).getRow());
+                        return i;
                     }
                 }
             }
         }
-        return isValidSquare;
+        return -1;
     }
 
     public void generateCenters() {
