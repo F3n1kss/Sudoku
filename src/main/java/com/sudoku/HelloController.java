@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class HelloController {
     SudokuGenerator generator = new SudokuGenerator();
@@ -24,7 +22,7 @@ public class HelloController {
     private static final int GRID_SIZE = 9;
 
     //Константи для рівнів складності
-    private int difficult;
+    private int difficult = EASY_DIFFICULTY;
     private static final int EASY_DIFFICULTY = 30;
     private static final int MEDIUM_DIFFICULTY = 20;
     private static final int HARD_DIFFICULTY = 10;

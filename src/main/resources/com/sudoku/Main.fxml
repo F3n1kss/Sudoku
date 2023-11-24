@@ -66,7 +66,7 @@
           <items>
                   <Menu mnemonicParsing="false" text="Edit difficult">
                      <items>
-                        <RadioMenuItem fx:id="easy" mnemonicParsing="false" onAction="#handleEditDifficult" text="Easy">
+                        <RadioMenuItem fx:id="easy" mnemonicParsing="false" onAction="#handleEditDifficult" onMenuValidation="#handleEditDifficult" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="toggleGroup" />
                            </toggleGroup></RadioMenuItem>

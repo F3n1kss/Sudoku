@@ -5,52 +5,56 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SudokuGenerator {
+    List<GameArea> coordinates = new ArrayList<>();
     private TextField[][] textFields = new TextField[GRID_SIZE][GRID_SIZE];
     private static final int GRID_SIZE = 9;
 
 
     public void fillGridPaneWithRandomValues(GridPane gridPane, int difficult) {
+        generateNumbers(difficult);
+        Random random = new Random();
+        for (GameArea area : coordinates) {
+            int row = area.getRow();
+            int col = area.getCol();
 
+            TextField textField = new TextField();
+            textField.setMinSize(30, 30);
+            textField.setFont(new Font(18));
+            textField.setStyle("-fx-border-color: black;");
+            textField.setStyle("-fx-border-color: black;");
+            textField.setStyle("-fx-background-color: transparent;");
+            textField.setStyle("-fx-text-fill: black;");
 
-        // Список індексів для випадкового вибору
-        List<Integer> availableIndexes = new ArrayList<>();
-        for (int i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
-            availableIndexes.add(i);
+            int randomValue = random.nextInt(9) + 1;
+            textField.setText(String.valueOf(randomValue));
+            // Заблокировать возможность редактирования для неизменных ячеек
+            textField.setEditable(false);
+            // Установить прозрачный фон
+            textField.setAlignment(Pos.CENTER);
+            textField.setStyle("-fx-cursor: default;");
+
+            gridPane.add(textField, col, row);
+            textFields[row][col] = textField;
         }
+    }
 
-        // Вибираємо 5 випадкових індексів
-        Collections.shuffle(availableIndexes);
-        List<Integer> selectedIndexes = availableIndexes.subList(0, difficult);
+    public void generateNumbers(int difficult) {
+        Random random = new Random();
+        while (coordinates.size() < difficult) {
+                int rows = random.nextInt(GRID_SIZE);
+                int cols = random.nextInt(GRID_SIZE);
+                GameArea area = new GameArea(rows, cols);
 
-        for (int row = 0; row < GRID_SIZE; row++) {
-            for (int col = 0; col < GRID_SIZE; col++) {
-                TextField textField = new TextField();
-                textField.setMinSize(30, 30);
-                textField.setFont(new Font(18));
-                textField.setStyle("-fx-border-color: black;");
-                textField.setStyle("-fx-border-color: black;");
-                textField.setStyle("-fx-background-color: transparent;");
-                textField.setStyle("-fx-text-fill: black;");
-
-                // Заповнення значенням тільки для вибраних кліток
-                if (selectedIndexes.contains(row * GRID_SIZE + col)) {
-                    int randomValue = (row * GRID_SIZE + col) % GRID_SIZE + 1;
-                    textField.setText(String.valueOf(randomValue));
-                    // Заблокувати можливість редагування для незмінних кліток
-                    textField.setEditable(false);
-                    // Встановити прозорий фон
-                    textField.setAlignment(Pos.CENTER);
-                    textField.setStyle("-fx-cursor: default;");
+                if (!coordinates.contains(area)) {
+                    coordinates.add(area);
                 }
-
-                gridPane.add(textField, col, row);
-                textFields[row][col] = textField;
-            }
+                else {
+                    rows = random.nextInt(GRID_SIZE);
+                    cols = random.nextInt(GRID_SIZE);
+                }
         }
     }
 }
