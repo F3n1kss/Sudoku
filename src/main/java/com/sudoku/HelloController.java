@@ -1,24 +1,35 @@
 package com.sudoku;
 
+import com.sudoku.gameArea.SudokuGenerator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXMLLoader;;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class HelloController  {
-    private Label[][] labels;
+public class HelloController {
+    SudokuGenerator generator = new SudokuGenerator();
+
+    private TextField[][] textFields;
     private static final int GRID_SIZE = 9;
+
+    //Константи для рівнів складності
+    private int difficult;
+    private static final int EASY_DIFFICULTY = 30;
+    private static final int MEDIUM_DIFFICULTY = 20;
+    private static final int HARD_DIFFICULTY = 10;
+    @FXML
+    private ToggleGroup toggleGroup;
     @FXML
     private GridPane gridPane;
     @FXML
@@ -44,11 +55,11 @@ public class HelloController  {
     @FXML
     private Menu editDifficultItem;
     @FXML
-    private MenuItem easy;
+    private RadioMenuItem easy;
     @FXML
-    private MenuItem medium;
+    private RadioMenuItem medium;
     @FXML
-    private MenuItem hard;
+    private RadioMenuItem hard;
     @FXML
     private MenuItem createCustomDifficultItem;
     @FXML
@@ -60,49 +71,13 @@ public class HelloController  {
     @FXML
     private MenuItem rulesItem;
 
+    //Кнопки для меню Game
     @FXML
     private void handleNewGame(ActionEvent event) {
-        fillGridPaneWithRandomValues();
-        printLabelsArray();
+        generator.fillGridPaneWithRandomValues(gridPane, difficult);
+        System.out.println(difficult);
+
     }
-    private void clearLabels() {
-        for (int row = 0; row < GRID_SIZE; row++) {
-            for (int col = 0; col < GRID_SIZE; col++) {
-                // Очищаємо текст у лейбла
-                labels[row][col].setText("");
-            }
-        }
-    }
-    public void fillGridPaneWithRandomValues() {
-
-
-        Random random = new Random();
-
-        for (int row = 0; row < GRID_SIZE; row++) {
-            for (int col = 0; col < GRID_SIZE; col++) {
-                labels[row][col] = new Label();
-                labels[row][col].setMinSize(39, 39);
-
-                // Генеруємо випадкове число від 0 до 9 і встановлюємо його як текст лейбла
-                int randomValue = random.nextInt(9)+1;
-                labels[row][col].setText(String.valueOf(randomValue));
-                labels[row][col].setFont(new Font(18));
-                // Додаємо лейбл на сітку
-                gridPane.add(labels[row][col], col, row);
-                labels[row][col].setStyle("-fx-padding: 0 0 0 7;");
-            }
-        }
-    }
-
-    public void printLabelsArray() {
-        for (int row = 0; row < GRID_SIZE; row++) {
-            for (int col = 0; col < GRID_SIZE; col++) {
-                System.out.print(labels[row][col].getText() + "\t");
-            }
-            System.out.println(); // Перехід на новий рядок після кожного рядка масиву
-        }
-    }
-
     @FXML
     private void handleLeaderBoard(ActionEvent event) {
 
@@ -118,9 +93,23 @@ public class HelloController  {
         Platform.exit();
     }
 
+
+    //Кнопки для меню Edit
     @FXML
     private void handleEditDifficult(ActionEvent event) {
+        Toggle selectedToggle = toggleGroup.getSelectedToggle();
 
+        if (selectedToggle != null) {
+            RadioMenuItem selectedRadioMenuItem = (RadioMenuItem) selectedToggle;
+
+            if (selectedRadioMenuItem.getId().equals(easy.getId())) {
+                difficult = EASY_DIFFICULTY;
+            } else if (selectedRadioMenuItem.getId().equals(medium.getId())) {
+                difficult = MEDIUM_DIFFICULTY;
+            } else if (selectedRadioMenuItem.getId().equals(hard.getId())) {
+                difficult = HARD_DIFFICULTY;
+            }
+        }
     }
 
     @FXML
@@ -128,6 +117,7 @@ public class HelloController  {
 
     }
 
+    //Кнопки для меню Help
     @FXML
     private void handleRules(ActionEvent event) throws IOException {
         openWindow("Rules.fxml", "Rules");
@@ -146,7 +136,4 @@ public class HelloController  {
         dialogStage.setScene(scene);
         dialogStage.show();
     }
-
-
-
 }
