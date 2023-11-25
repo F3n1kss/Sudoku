@@ -1,6 +1,6 @@
 package com.sudoku;
 
-import com.sudoku.gameArea.SudokuGenerator;
+import com.sudoku.gameArea.AreaGenerator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,16 +16,16 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class SudokuController {
-    SudokuGenerator generator = new SudokuGenerator();
+    AreaGenerator generator = new AreaGenerator();
 
     private TextField[][] textFields;
     private static final int GRID_SIZE = 9;
 
     //Константи для рівнів складності
     private int difficult = EASY_DIFFICULTY;
-    private static final int EASY_DIFFICULTY = 30;
-    private static final int MEDIUM_DIFFICULTY = 20;
-    private static final int HARD_DIFFICULTY = 10;
+    private static final int EASY_DIFFICULTY = 40;
+    private static final int MEDIUM_DIFFICULTY = 30;
+    private static final int HARD_DIFFICULTY = 20;
     @FXML
     private ToggleGroup toggleGroup;
     @FXML
@@ -73,8 +73,6 @@ public class SudokuController {
     @FXML
     private void handleNewGame(ActionEvent event) {
         generator.fillGridPaneWithRandomValues(gridPane, difficult);
-        System.out.println(difficult);
-
     }
     @FXML
     private void handleLeaderBoard(ActionEvent event) {
