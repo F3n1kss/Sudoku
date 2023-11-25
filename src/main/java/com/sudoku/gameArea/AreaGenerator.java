@@ -27,7 +27,7 @@ public class AreaGenerator {
 
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
-                GameArea area = coordinates.get(row * GRID_SIZE + col);
+                GameArea area = initialCoordinates.get(row * GRID_SIZE + col);
                 int value = area.getValue();
 
                 TextField textField = new TextField();
@@ -37,9 +37,12 @@ public class AreaGenerator {
                 textField.setStyle("-fx-background-color: transparent;");
                 textField.setStyle("-fx-text-fill: black;");
                 textField.setText(value > 0 ? String.valueOf(value) : "");
-                textField.setEditable(false);
+
+                // Устанавливаем редактируемость в зависимости от наличия значения
+                textField.setEditable(value == 0);
+
                 textField.setAlignment(Pos.CENTER);
-                textField.setStyle("-fx-cursor: default;");
+                textField.setStyle("-fx-cursor: " + (value == 0 ? "text" : "default"));
 
                 gridPane.add(textField, col, row);
                 textFields[row][col] = textField;
@@ -123,7 +126,7 @@ public class AreaGenerator {
         while (removedIndices.size() < 81 - difficulty) {
             int randomIndex = random.nextInt(GRID_SIZE * GRID_SIZE);
             removedIndices.add(randomIndex);
-            coordinates.get(randomIndex).setValue(0);
+            initialCoordinates.get(randomIndex).setValue(0);
         }
     }
 }
